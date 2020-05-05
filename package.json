@@ -8,7 +8,7 @@
 	"start-with-proxy": "start npm run geoserver-proxy && npm run dev",
     "dev": "lite-server",
     "test": "echo \"Error: no test specified\" && exit 1",
-	"geoserver-proxy": "lcp --proxyUrl https://geoserver-vv.azurewebsites.net --port 8080 --proxyPartial geoserver"
+	"geoserver-proxy": "lcp --proxyUrl https://geoserver.url --port 8080 --proxyPartial geoserver"
   },
   "author": "Sebastian Kvist",
   "license": "ISC",
