@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Gis-labb</title>
+  </head>
+
+  <body>
+	<style>
+		html, body{
+			margin: 0;
+			height: 100%;
+			width: 100%;
+			-moz-user-select: none;
+			-webkit-user-select: none;
+			user-select: none;
+			background: gray;
+		}
+	</style>
+
+	<div id="loader">Laddar...</div>
+
+	<link rel="stylesheet" href="css/scalebar.openlayers.css"/>
+	
+	<!-- Praxis: Script-taggar längre ned i body'n, för att de inte ska blockera ev. rendering. -->
+    <script data-main="js/main" src="node_modules/requirejs/require.js"></script>
+  </body>
+</html>

@@ -1,0 +1,25 @@
+{
+  "name": "gis-labb",
+  "version": "0.0.1",
+  "description": "En demo-app för diverse GIS-funktioner. Baseras på rjs & ol2.",
+  "main": "js/main.js",
+  "scripts": {
+    "start": "npm run dev",
+	"start-with-proxy": "start npm run geoserver-proxy && npm run dev",
+    "dev": "lite-server",
+    "test": "echo \"Error: no test specified\" && exit 1",
+	"geoserver-proxy": "lcp --proxyUrl https://geoserver-vv.azurewebsites.net --port 8080 --proxyPartial geoserver"
+  },
+  "author": "Sebastian Kvist",
+  "license": "ISC",
+  "dependencies": {
+    "ol2": "git+https://github.com/sweco-seskvi/ol2.git#master",
+    "proj4": "2.2.2",
+    "requirejs": "^2.3.6",
+    "requirejs-domready": "^2.0.3"
+  },
+  "devDependencies": {
+    "lite-server": "^2.5.4",
+    "local-cors-proxy": "^1.1.0"
+  }
+}
