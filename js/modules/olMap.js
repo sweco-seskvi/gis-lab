@@ -18,8 +18,12 @@ define(['openlayers'], (OpenLayers) => {
 			maxExtent: mapExtent
 		});
 	},
-	getMap = () => map,
-	setStartingPos = () => map.setCenter([6673340.0, 1104304.0], 7);
+	getMap = () => map,					   
+	setStartingPos = () => {
+		const lonLat = [525541.0, 6350779.0];
+		map.setCenter(lonLat, 3);
+		map.panTo(lonLat);
+	}
 	
 	createMapView();
 
