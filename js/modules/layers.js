@@ -1,7 +1,9 @@
 // layers.js
 
 define(['openlayers', 'layerStyles', 'extended.save.strategy.openlayers'], (OpenLayers, LayerStyles, ExtendedSaveStrategy) => {
-	let valtorLayer = {};
+	const wfsUrl = 'http://localhost:8080/geoserver/valtmall/wfs',
+		  wmsUrl = 'http://localhost:8080/geoserver/valtmall/wms';
+	let containrarLayer, valtorLayer = {};
 	
 	const lmTopo = () => {
 		const lmToken = ''; // ange giltig token från lantmäteriet
@@ -18,23 +20,45 @@ define(['openlayers', 'layerStyles', 'extended.save.strategy.openlayers'], (Open
 			resolutions: [4096, 2048, 1024, 512, 256, 128, 64, 32, 16, 8] // behövs för projiceringen
 		});
 	},
+	containrar = () => {
+		if (!containrarLayer || !containrarLayer.id) {
+			containrarLayer = new OpenLayers.Layer.Vector('Containrar', {
+				strategies: [new OpenLayers.Strategy.BBOX({force: true})],
+				protocol: new OpenLayers.Protocol.WFS.v1_1_0({
+					url: wfsUrl,
+					srsName: 'EPSG:3006',
+					featureType: ['containrar'],
+					featureNS: 'http://business.sydved.se'
+				}),
+				styleMap: LayerStyles.containrar()
+			});
+		}
+
+		return containrarLayer;
+	},
+	marktacke = () => {
+		return new OpenLayers.Layer.WMS("NV Marktäcke Riks", wmsUrl, {
+			format: 'image/png',
+			layers: 'valtmall:0',
+			srs: 'EPSG:3006',
+			version: '1.1.1'
+		}, { projection: new OpenLayers.Projection("EPSG:3006") });
+	},
 	valtor = () => {
 		if (!valtorLayer || !valtorLayer.id) {
-			const valtorUrl = 'http://localhost:8080/geoserver/valtmall/wfs';
-
 			valtorLayer = new OpenLayers.Layer.Vector("Vältor", {
 				strategies: [new OpenLayers.Strategy.Fixed(), new ExtendedSaveStrategy({ auto: true })],
 				projection: new OpenLayers.Projection("EPSG:3006"),
 				protocol: new OpenLayers.Protocol.WFS({
-					url: valtorUrl,
+					url: wfsUrl,
 					version: '1.1.0',
 					featurePrefix: 'valtmall',
-					featureType: 'valtor',
-					featureNS: 'http://gis-lab/valtmall',
+					featureType: 'containrar',
+					featureNS: 'http://business.sydved.se',
 					srsName: 'EPSG:3006',
 					geometryName: 'geom'
 				}),
-				styleMap: LayerStyles.point()
+				styleMap: LayerStyles.valtor()
 			});
 		}
 
@@ -42,7 +66,9 @@ define(['openlayers', 'layerStyles', 'extended.save.strategy.openlayers'], (Open
 	}
 
 	return {
+		'containrar': containrar,
 		'lmTopo': lmTopo,
+		'marktacke': marktacke,
 		'valtor': valtor
 	}
 });

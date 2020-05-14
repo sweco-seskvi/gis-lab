@@ -65,6 +65,7 @@ OpenLayers.Handler.Draw.Point = OpenLayers.Class(OpenLayers.Handler.Draw, {
         if(!(options && options.layerOptions && options.layerOptions.styleMap)) {
             this.style = OpenLayers.Util.extend(OpenLayers.Feature.Vector.style['default'], {});
         }
+
         OpenLayers.Handler.prototype.initialize.apply(this, arguments);
     },
     /**
@@ -72,8 +73,6 @@ OpenLayers.Handler.Draw.Point = OpenLayers.Class(OpenLayers.Handler.Draw, {
      * Activates the handler
      */
     activate: function() {
-        console.log("activate,this:", this)
-        console.log("activate, arguments:", arguments)
         if(!OpenLayers.Handler.prototype.activate.apply(this, arguments)) {
             return false;
         }
@@ -208,9 +207,7 @@ OpenLayers.Handler.Draw.Point = OpenLayers.Class(OpenLayers.Handler.Draw, {
      *          is false.
      */
     finalize: function(cancel) {
-        console.log("wtfffff", this.callback)
         var key = cancel ? "cancel" : "done";
-        console.log("key", key)
         this.callback(key, /*null*/[this.layer.features[0]]);
         this.destroyFeature(cancel);
     },

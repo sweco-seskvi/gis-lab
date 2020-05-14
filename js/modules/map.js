@@ -13,6 +13,8 @@ define(['olMap', 'layers', 'edit'], (olMap, Layers, Edit) => {
 	
 	addLayers = () => {
 		olMap.get().addLayer(Layers.lmTopo());
+		olMap.get().addLayer(Layers.marktacke());
+		olMap.get().addLayer(Layers.containrar());
 		olMap.get().addLayer(Layers.valtor());
 	},
 	
