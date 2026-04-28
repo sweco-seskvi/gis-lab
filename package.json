@@ -19,7 +19,7 @@
     "requirejs-domready": "^2.0.3"
   },
   "devDependencies": {
-    "lite-server": "^2.5.4",
+    "lite-server": "^2.6.1",
     "local-cors-proxy": "^1.1.0"
   }
 }
